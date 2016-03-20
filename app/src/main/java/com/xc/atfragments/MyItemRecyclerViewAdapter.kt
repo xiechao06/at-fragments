@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.xc.atfragments.HeadlinesFragment.OnListFragmentInteractionListener
-import com.xc.atfragments.dummy.DummyContent.DummyItem
+import com.xc.atfragments.dummy.HeadLines.Headline
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [Headline] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyItemRecyclerViewAdapter(private val mValues: List<DummyItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
+class MyItemRecyclerViewAdapter(private val mValues: List<Headline>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,11 +24,10 @@ class MyItemRecyclerViewAdapter(private val mValues: List<DummyItem>, private va
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mItem = mValues[position]
-        holder.mIdView.text = mValues[position].id
         holder.mContentView.text = mValues[position].content
 
         holder.mView.setOnClickListener {
-            mListener?.onListFragmentInteraction(holder.mItem)
+            mListener?.onArticleSelected(holder.mItem, position)
         }
     }
 
@@ -37,12 +36,10 @@ class MyItemRecyclerViewAdapter(private val mValues: List<DummyItem>, private va
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView
         val mContentView: TextView
-        lateinit var mItem: DummyItem
+        lateinit var mItem: Headline
 
         init {
-            mIdView = mView.findViewById(R.id.id) as TextView
             mContentView = mView.findViewById(R.id.content) as TextView
         }
 

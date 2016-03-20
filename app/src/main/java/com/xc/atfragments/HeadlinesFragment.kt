@@ -10,8 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.xc.atfragments.dummy.DummyContent
-import com.xc.atfragments.dummy.DummyContent.DummyItem
+import com.xc.atfragments.dummy.HeadLines
+import com.xc.atfragments.dummy.HeadLines.Headline
 
 /**
  * A fragment representing a list of Items.
@@ -45,7 +45,7 @@ class HeadlinesFragment : Fragment() {
             } else {
                 view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            view.adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener)
+            view.adapter = MyItemRecyclerViewAdapter(HeadLines.ITEMS, mListener)
         }
 
         return view
@@ -79,7 +79,7 @@ class HeadlinesFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem)
+        fun onArticleSelected(item: Headline, position: Int)
     }
 
     companion object {

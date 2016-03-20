@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.widget.Toast
-import com.xc.atfragments.dummy.DummyContent
+import com.xc.atfragments.dummy.HeadLines
 import kotlinx.android.synthetic.main.activity_main.*
 
 fun toast(context: Context, s: String) {
@@ -17,11 +17,26 @@ fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransa
     beginTransaction().func().commit()
 }
 
-class MainActivity : AppCompatActivity(), HeadlinesFragment.OnListFragmentInteractionListener {
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
-        toast(this, item.content + "clicked")
+class MainActivity : AppCompatActivity(), HeadlinesFragment.OnListFragmentInteractionListener,
+ArticleFragment.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(uri: Uri) {
+
     }
 
+    override fun onArticleSelected(item: HeadLines.Headline, position: Int) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.article_fragment)
+        if (fragment == null) {
+            val fragment = ArticleFragment()
+            val bundle = Bundle()
+            bundle.putInt(ArticleFragment.ARG_POSITION, position)
+            fragment.arguments = bundle
+
+            supportFragmentManager.inTransaction {
+                replace(fragmentContainer.id, fragment)
+                addToBackStack(null)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
